@@ -1,14 +1,10 @@
-import 'package:cart_example/providers/cart_provider.dart';
 import 'package:cart_example/screens/catalog.dart';
 import 'package:cart_example/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (BuildContext context) => CartProvider(),
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

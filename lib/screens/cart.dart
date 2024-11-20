@@ -1,10 +1,9 @@
-import 'package:cart_example/models/item.dart';
-import 'package:cart_example/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyCart extends StatelessWidget {
-  const MyCart({super.key,});
+  const MyCart({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,31 +35,27 @@ class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemNameStyle = Theme.of(context).textTheme.titleLarge;
-   /// TODO listen to cart items
 
-    return Consumer<CartProvider>(
-  builder: (context, provider, child) {
-  return ListView.builder(
-      itemCount: provider.cart.length,
+    /// TODO listen to cart items
+
+    return ListView.builder(
+      itemCount: 0,
       itemBuilder: (context, index) {
-        Item currentItem=provider.cart[index];
         return ListTile(
-        leading: const Icon(Icons.done),
-        trailing: IconButton(
-          icon: const Icon(Icons.remove_circle_outline),
-          onPressed: () {
-            provider.removeItem(currentItem);
-          },
-        ),
-        title: Text(
-          currentItem.name,
-          style: itemNameStyle,
-        ),
-      );
+          leading: const Icon(Icons.done),
+          trailing: IconButton(
+            icon: const Icon(Icons.remove_circle_outline),
+            onPressed: () {
+              ///remove item from cart
+            },
+          ),
+          title: Text(
+            "Item Name",
+            style: itemNameStyle,
+          ),
+        );
       },
     );
-  },
-);
   }
 }
 
@@ -68,7 +63,7 @@ class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var hugeStyle =
-    Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 48);
+        Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 48);
 
     return SizedBox(
       height: 200,
@@ -76,12 +71,8 @@ class _CartTotal extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-           /// TODO calculate total price
-            Consumer<CartProvider>(
-  builder: (context, provider, child) {
-  return Text('\$ ${provider.getTotalPrice()}', style: hugeStyle);
-  },
-),
+            /// TODO calculate total price
+            Text('\$ Total Price', style: hugeStyle),
             const SizedBox(width: 24),
             FilledButton(
               onPressed: () {

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/item.dart';
-import '../providers/cart_provider.dart';
 import 'cart.dart';
 
 class MyCatalog extends StatelessWidget {
@@ -38,25 +37,21 @@ class _AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     /// TODO listen to cart provider
 
-    return Consumer<CartProvider>(
-      builder: (context, provider, child) {
-        return TextButton(
-          onPressed: () {
-            provider.addItem(item);
-          },
-          style: ButtonStyle(
-            overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
-              if (states.contains(WidgetState.pressed)) {
-                return Theme.of(context).primaryColor;
-              }
-              return null; // Defer to the widget's default.
-            }),
-          ),
-          child: provider.isInCart(item)
-              ? const Icon(Icons.check, semanticLabel: 'ADDED')
-              : const Text('ADD'),
-        );
+    return TextButton(
+      onPressed: () {
+        /// add item to cart
       },
+      style: ButtonStyle(
+        overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.pressed)) {
+            return Theme.of(context).primaryColor;
+          }
+          return null; // Defer to the widget's default.
+        }),
+      ),
+      child: false
+          ? const Icon(Icons.check, semanticLabel: 'ADDED')
+          : const Text('ADD'),
     );
   }
 }
@@ -67,25 +62,15 @@ class _MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text('Catalog', style: Theme.of(context).textTheme.displayLarge),
       actions: [
-        Consumer<CartProvider>(
-          child: IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              /// TODO open cart screen
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (navigatorContext) {
-                ;
-                return MyCart();
-              }));
-            },
-          ),
-          builder: (context, provider, child) {
-            return Badge(
-              label: Text("${provider.cart.length}"),
-              alignment: AlignmentDirectional.topStart,
-              isLabelVisible: provider.cart.isNotEmpty,
-              child: child,
-            );
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          onPressed: () {
+            /// TODO open cart screen
+            Navigator.push(context,
+                MaterialPageRoute(builder: (navigatorContext) {
+              ;
+              return MyCart();
+            }));
           },
         ),
       ],
